@@ -1,5 +1,10 @@
-import { GeminiProvider } from "./gemini-provider";
+import { OpenAIProvider } from "./openai-provider";
 import type { AIProvider } from "./types";
+
+// GeminiProvider remains in the codebase (./gemini-provider.ts) as an
+// inactive provider — Gemini proved unreliable (repeated model
+// availability/503 issues), so OpenAI is now the active provider below.
+// Switching back, or to another provider, is a one-line change here.
 
 export type { AIProvider } from "./types";
 export type {
@@ -18,11 +23,11 @@ let cachedProvider: AIProvider | null = null;
 export function getAIProvider(): AIProvider {
   if (cachedProvider) return cachedProvider;
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    throw new Error("GEMINI_API_KEY is not set");
+    throw new Error("OPENAI_API_KEY is not set");
   }
 
-  cachedProvider = new GeminiProvider(apiKey);
+  cachedProvider = new OpenAIProvider(apiKey);
   return cachedProvider;
 }

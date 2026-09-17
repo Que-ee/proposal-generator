@@ -38,9 +38,9 @@ const JOB_ANALYSIS_RESPONSE_SCHEMA = {
 };
 
 /** Primary model, tried first for every request. */
-const PRIMARY_MODEL = "gemini-3.8-flash";
+const PRIMARY_MODEL = "gemini-2.5-flash";
 /** Used once, only after the primary model fails from transient unavailability. */
-const FALLBACK_MODEL = "gemini-3.7-flash";
+const FALLBACK_MODEL = "gemini-2.5-flash-lite";
 
 const RETRY_DELAY_MS = 500;
 
@@ -77,10 +77,10 @@ function delay(ms: number): Promise<void> {
  * reduction, not a hard safety guarantee; output review remains the user's
  * responsibility for this MVP.
  *
- * Reliability: gemini-3.8-flash (PRIMARY_MODEL) is tried first. If a call
+ * Reliability: gemini-2.5-flash (PRIMARY_MODEL) is tried first. If a call
  * fails specifically from transient unavailability (503/"UNAVAILABLE"), it's
  * retried once after a short delay on the same model; if that retry also
- * fails from unavailability, it falls back once to gemini-3.7-flash
+ * fails from unavailability, it falls back once to gemini-2.5-flash-lite
  * (FALLBACK_MODEL). Any other kind of error (auth, malformed request,
  * validation, quota/billing) is thrown immediately with no retry.
  */
