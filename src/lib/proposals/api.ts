@@ -1,6 +1,45 @@
 import { createBrowserClient } from "@/lib/supabase/client";
 import type { Proposal } from "@/types";
-import { proposalFromRow, proposalToInsertRow, type ProposalRow } from "./mappers";
+import {
+  proposalFromRow,
+  proposalSummaryFromRow,
+  proposalToInsertRow,
+  type ProposalRow,
+  type ProposalSummary,
+  type ProposalSummaryRow,
+} from "./mappers";
+
+const SUMMARY_COLUMNS =
+  "id, job_title, company_name, generated_proposal, edited_proposal, created_at";
+
+/** Newest-first list for the history page. Fetches only what the list/detail views render. */
+export async function listProposals(): Promise<ProposalSummary[]> {
+  const supabase = createBrowserClient();
+
+  const { data, error } = await supabase
+    .from("proposals")
+    .select(SUMMARY_COLUMNS)
+    .order("created_at", { ascending: false })
+    .returns<ProposalSummaryRow[]>();
+
+  if (error) throw error;
+  return (data ?? []).map(proposalSummaryFromRow);
+}
+
+/** Single proposal for the detail view. Returns null if the id doesn't exist. */
+export async function getProposalSummary(id: string): Promise<ProposalSummary | null> {
+  const supabase = createBrowserClient();
+
+  const { data, error } = await supabase
+    .from("proposals")
+    .select(SUMMARY_COLUMNS)
+    .eq("id", id)
+    .maybeSingle<ProposalSummaryRow>();
+
+  if (error) throw error;
+  if (!data) return null;
+  return proposalSummaryFromRow(data);
+}
 
 /**
  * Inserts a newly generated proposal. Only `insert`/`select` are needed for
