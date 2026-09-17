@@ -112,7 +112,9 @@ export function ProposalDetail({ id }: { id: string }) {
 
       <Card>
         <CardHeader>
-          <CardTitle>{proposal.jobTitle || "Untitled proposal"}</CardTitle>
+          <CardTitle className="break-words">
+            {proposal.jobTitle || "Untitled proposal"}
+          </CardTitle>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
             {proposal.companyName ? <span>{proposal.companyName}</span> : null}
             <span>{formatDate(proposal.createdAt)}</span>

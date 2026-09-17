@@ -85,15 +85,17 @@ export function ProposalList() {
           <Card className="transition-colors hover:bg-muted/50">
             <CardContent className="flex flex-col gap-1.5">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h2 className="font-medium">
+                <h2 className="font-medium break-words">
                   {proposal.jobTitle || "Untitled proposal"}
                 </h2>
-                <span className="text-xs text-muted-foreground">
+                <span className="shrink-0 text-xs text-muted-foreground">
                   {formatDate(proposal.createdAt)}
                 </span>
               </div>
               {proposal.companyName ? (
-                <p className="text-sm text-muted-foreground">{proposal.companyName}</p>
+                <p className="text-sm text-muted-foreground break-words">
+                  {proposal.companyName}
+                </p>
               ) : null}
               <p className="text-sm text-muted-foreground">
                 {preview(proposal.proposalText)}
