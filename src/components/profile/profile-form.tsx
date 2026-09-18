@@ -135,18 +135,6 @@ export function ProfileForm() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Freelancer profile
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          This is the verified information the AI will draw on when it drafts
-          proposals for you. It will only use what you save here — including
-          your experience and evidence — rather than inventing claims on your
-          behalf.
-        </p>
-      </div>
-
       {loadError ? (
         <div className="flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2 text-sm text-destructive">
           <TriangleAlert className="size-4 shrink-0" />

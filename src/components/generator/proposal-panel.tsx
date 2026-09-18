@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Copy, Loader2, RefreshCw, TriangleAlert } from "lucide-react";
+import { Check, CheckCircle2, Copy, Loader2, RefreshCw, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -99,7 +99,10 @@ export function ProposalPanel({
             </span>
           ) : null}
           {saveStatus === "saved" ? (
-            <span className="text-sm text-muted-foreground">Saved</span>
+            <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <CheckCircle2 className="size-4 text-primary" />
+              Saved
+            </span>
           ) : null}
           {saveStatus === "error" ? (
             <span className="flex items-center gap-1.5 text-sm text-destructive">

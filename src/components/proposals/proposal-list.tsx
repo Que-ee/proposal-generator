@@ -81,7 +81,11 @@ export function ProposalList() {
   return (
     <div className="flex flex-col gap-3">
       {proposals.map((proposal) => (
-        <Link key={proposal.id} href={`/proposals/${proposal.id}`}>
+        <Link
+          key={proposal.id}
+          href={`/proposals/${proposal.id}`}
+          className="block rounded-xl outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
           <Card className="transition-colors hover:bg-muted/50">
             <CardContent className="flex flex-col gap-1.5">
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
